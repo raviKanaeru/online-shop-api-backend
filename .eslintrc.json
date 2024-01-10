@@ -12,5 +12,10 @@
   },
   "plugins": ["@typescript-eslint"],
   "ignorePatterns": ["**/build/*", "**/node_modules/*", "**/public/*"],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-unsafe-argument": "off"
+  }
 }
