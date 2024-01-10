@@ -3,9 +3,10 @@ import { decode } from 'jsonwebtoken'
 import { verifyJWT } from '../utils/jwt'
 
 const deserializedUser = async (req: Request, res: Response, next: NextFunction) => {
-  const accessToken: string | undefined = req.headers.authorization?.replace(/^Bearer\s/, '') ?? ''
-  if (!accessToken) {
+  const accessToken: string | undefined = req.headers.authorization?.replace(/^Bearer\s/, '')
+  if (accessToken === undefined) {
     next()
+    return
   }
 
   const { decoded, expired } = verifyJWT(accessToken)
@@ -13,10 +14,12 @@ const deserializedUser = async (req: Request, res: Response, next: NextFunction)
   if (decoded) {
     res.locals.user = decode
     next()
+    return
   }
 
   if (expired) {
     next()
+    return
   }
 
   next()
